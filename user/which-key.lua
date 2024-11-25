@@ -1,32 +1,22 @@
-local kind = require('kind')
+local wk = require("which-key")
 
-local wk = lvim.builtin.which_key
+local function visual_cursors_with_delay()
+  -- Execute the vm-visual-cursors command.
+  vim.cmd('silent! execute "normal! \\<Plug>(VM-Visual-Cursors)"')
+  -- Introduce delay via VimScript's 'sleep' (set to 500 milliseconds here).
+  vim.cmd('sleep 200m')
+  -- Press 'A' in normal mode after the delay.
+  vim.cmd('silent! execute "normal! A"')
+end
 
-wk.mappings["S"] = {
-  name = " persistence.nvim",
-  s = { "<cmd>lua require('persistence').load()<cr>", kind.icons.clock .. " Reload last session for dir" },
-  l = { "<cmd>lua require('persistence').load({ last = true })<cr>", kind.icons.clock .. " Restore last session" },
-  Q = { "<cmd>lua require('persistence').stop()<cr>", kind.icons.exit .. " Quit without saving session" },
-}
+wk.register({
+  m = {
+    name = "Visual Multi",
+    a = { "<Plug>(VM-Select-All)<Tab>", "Select All", mode = { "n" } },
+    r = { "<Plug>(VM-Start-Regex-Search)", "Start Regex Search", mode = { "n" } },
+    p = { "<Plug>(VM-Add-Cursor-At-Pos)", "Add Cursor At Pos", mode = { "n" } },
+    v = { visual_cursors_with_delay, "Visual Cursors", mode = { "v" } },
+    o = { "<Plug>(VM-Toggle-Mappings)", "Toggle Mapping", mode = { "n" } },
+  }
+}, { prefix = "<leader>" })
 
-wk.mappings["l"]["t"] = { ":LvimToggleFormatOnSave<cr>", kind.symbols_outline.File .. " Toggle format-on-save" }
-wk.mappings["l"]["R"] = { ":LspRestart<cr>", kind.icons.exit .. " Restart" }
-
-wk.mappings["s"]["w"] = {
-  "<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.expand('<cword>') })<cr>",
-  ' ' .. kind.cmp_kind.EnumMember .. " Search Word Under Cursor"
-}
-
-wk.mappings["W"] = {
-  name = ' ' .. kind.icons.screen .. " Window Ctrl",
-  h = { '<C-w>|', 'Maximize window horizontally (|)' },
-  v = { '<C-w>_', 'Maximize window vertically (_)' },
-  ['='] = { '<C-w>=', 'Resize windows equally' },
-  s = { ":lua require('telescope-tabs').list_tabs()<cr>", 'Search Tabs' },
-}
-
-wk.mappings["t"] = {
-  name = ' Telescope',
-  p = { ':Telescope projects<cr>', 'Projects' }, -- requires telescope-project.nvim plugin
-  r = { ':Telescope resume<cr>', 'Resume' },
-}

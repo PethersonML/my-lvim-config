@@ -1,6 +1,11 @@
 -- Configurações gerais do LunarVim
 lvim.log.level = "warn"
 lvim.format_on_save = true
+vim.opt.guifont = "FiraCode Nerd Font Mono:h8"
+
+vim.o.foldmethod = 'indent'
+vim.o.foldenable = true
+vim.o.foldlevel = 99
 
 -- Configurações do Treesitter
 lvim.builtin.treesitter.ignore_install = {}
@@ -24,7 +29,7 @@ vim.opt.shell = "/bin/zsh"
 
 -- Outras configurações de Vim
 vim.o.linebreak = true
-vim.o.wrap = false
+vim.o.wrap = true
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 lvim.builtin.telescope.defaults.path_display = {
