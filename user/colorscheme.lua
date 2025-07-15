@@ -1,5 +1,5 @@
-lvim.colorscheme = "material"
-vim.g.material_style = "palenight"
+lvim.colorscheme = "luna"
+vim.g.material_style = "luna"
 
 -- local themes = {
 --   gruvbox = "gruvbox",
